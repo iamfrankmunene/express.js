@@ -5,15 +5,17 @@ import passport from 'passport'
 import mongoose from 'mongoose'
 import MongoStore from 'connect-mongo'
 import router from './routes/viewRoutes.mjs'
+import dotenv from 'dotenv'
 
+dotenv.config()
 
 export function createApp() {
 
     const app = express()
     app.use(express.json())
-    app.use(cookieParser('mySecret'))
+    app.use(cookieParser(process.env.SECRET))
     app.use(session({
-    secret: 'mySignature',
+    secret: process.env.SIGNATURE,
     saveUninitialized: false,
     resave: false,
     cookie: {
